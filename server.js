@@ -17,18 +17,29 @@ app.use(express.json());
 
 // Database Connection
 mongoose
-    .connect(process.env.MONGO_URI) // Removed unnecessary options
-    .then(() => console.log("Connected to MongoDB"))
-    .catch((err) => console.error("MongoDB connection error:", err));
+    .connect(
+        "mongodb+srv://purumehan978:NSS_DB@nss-db.at1i4om.mongodb.net/?retryWrites=true&w=majority&appName=NSS-Db",
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
+    )
+    .then(() => {
+        console.log("MongoDB connected ✅");
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    })
+    .catch((err) => {
+        console.error("MongoDB connection error ❌", err.message);
+    });
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/events", eventRoutes);
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("Backend Run Succ ");
-})// ADD THIS LINE
+}); // ADD THIS LINE
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
