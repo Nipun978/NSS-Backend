@@ -15,22 +15,24 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Database Connection
-mongoose
-    .connect(
-        "mongodb+srv://purumehan978:NSS_DB@nss-db.at1i4om.mongodb.net/?retryWrites=true&w=majority&appName=NSS-Db",
-        {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        }
-    )
-    .then(() => {
-        console.log("MongoDB connected ✅");
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-    })
-    .catch((err) => {
-        console.error("MongoDB connection error ❌", err.message);
-    });
+const connect = async () => {
+    try {
+        const mongoConnect = await mongoose.connect(
+            "mongodb+srv://purumehan978:NSS_DB@nss-db.at1i4om.mongodb.net/?retryWrites=true&w=majority&appName=NSS-Db",
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+            }
+        );
+        console.log("✅ MongoDB connected");
+    } catch (e) {
+        console.error("❌ MongoDB connection error:", e.message);
+        process.exit(1); // optional: crash the app if DB isn't connected
+    }
+};
+
+connect();
+
 
 // Routes
 app.use("/api/auth", authRoutes);
