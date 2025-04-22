@@ -24,7 +24,11 @@ mongoose
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/events", eventRoutes); // ADD THIS LINE
+app.use("/api/events", eventRoutes);
+
+app.get("/",(req,res)=>{
+    res.send("Backend Run Succ ");
+})// ADD THIS LINE
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
