@@ -41,6 +41,6 @@ app.get("/", (req, res) => {
     res.send("Backend Run Succ ");
 }); // ADD THIS LINE
 
-app.listen(port, () => {
+app.listen(5000, () => {
     console.log(`Server is running on port ${port}`);
 });

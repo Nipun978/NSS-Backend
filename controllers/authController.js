@@ -4,10 +4,8 @@ const bcrypt = require("bcryptjs");
 
 // Helper function to generate JWT
 const generateToken = (id, rememberMe = false) => {
-    const expiresIn = rememberMe
-        ? process.env.JWT_REMEMBER_ME_EXPIRATION
-        : "30d";
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+    const expiresIn = "30d";
+    return jwt.sign({ id }, "your-super-secret-key", {
         expiresIn: expiresIn,
     });
 };
